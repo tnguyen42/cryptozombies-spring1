@@ -1,0 +1,31 @@
+{
+	"name": "cryptozombies-spring1",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "truffle test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tnguyen42/cryptozombies-spring1.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/tnguyen42/cryptozombies-spring1/issues"
+	},
+	"homepage": "https://github.com/tnguyen42/cryptozombies-spring1#readme",
+	"dependencies": {
+		"@truffle/hdwallet-provider": "^1.2.6",
+		"chai": "^4.3.4",
+		"dotenv": "^8.2.0",
+		"solc": "^0.8.3",
+		"solidity-docgen": "^0.5.11"
+	},
+	"devDependencies": {
+		"@openzeppelin/test-helpers": "^0.5.10",
+		"prettier": "2.2.1",
+		"solidity-coverage": "^0.7.16"
+	}
+}
