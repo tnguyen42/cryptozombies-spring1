@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.0;
+pragma solidity >=0.8.0 <0.9.0;
 
 /**
  * @title ZombieFactory
@@ -22,15 +22,21 @@ contract ZombieFactory {
 
 	Zombie[] public zombies;
 
+	mapping(uint256 => address) public zombieToOwner;
+	mapping(address => uint256) public ownerZombieCount;
+
 	/**
 	 * @dev A function that creates a new zombie and adds it to the zombies array
 	 * @param _name The name of the new zombie to be added
 	 * @param _dna The dna of the new zombie to be added
 	 */
-	function _createZombie(string memory _name, uint256 _dna) private {
+	function _createZombie(string memory _name, uint256 _dna) internal {
 		zombies.push(Zombie(_name, _dna));
+		uint256 id = zombies.length - 1;
+		zombieToOwner[id] = msg.sender;
+		ownerZombieCount[msg.sender]++;
 
-		emit NewZombie(zombies.length - 1, _name, _dna);
+		emit NewZombie(id, _name, _dna);
 	}
 
 	/**
@@ -52,6 +58,10 @@ contract ZombieFactory {
 	 * @param _name The name of the zombie to be created
 	 */
 	function createRandomZombie(string memory _name) public {
+		require(
+			ownerZombieCount[msg.sender] == 0,
+			"This user has already created a Zombie"
+		);
 		uint256 randDna = _generateRandomDna(_name);
 
 		_createZombie(_name, randDna);
