@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  ethereum:
+    container_name: ethereum
+    image: trufflesuite/ganache-cli:v6.12.1
+    networks:
+      - ethereum
+    ports:
+      - "8545:8545"
+    logging:
+      driver: none
+
+  test:
+    container_name: test
+    build:
+      context: ./
+      dockerfile: tests.Dockerfile
+    depends_on:
+      - ethereum
+    volumes:
+      - ".:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    environment:
+      - host=ethereum
+    networks:
+      - ethereum
+
+networks:
+  ethereum:

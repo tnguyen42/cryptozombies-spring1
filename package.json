@@ -5,7 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "truffle test",
-		"migrate": "truffle migrate --network ropsten"
+		"docker:test": "docker-compose -p ZombieFactory-test -f docker-compose.tests.yml up",
+		"migrate": "truffle migrate --network ropsten",
+		"docker:migrate": "docker-compose -p ZombieFactory -f docker-compose.migrate.yml up"
 	},
 	"repository": {
 		"type": "git",
