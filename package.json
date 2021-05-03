@@ -20,6 +20,7 @@
 	},
 	"homepage": "https://github.com/tnguyen42/cryptozombies-spring1#readme",
 	"dependencies": {
+		"@openzeppelin/contracts": "^4.1.0",
 		"@truffle/hdwallet-provider": "^1.2.6",
 		"chai": "^4.3.4",
 		"dotenv": "^8.2.0",

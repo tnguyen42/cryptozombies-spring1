@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
+
 /**
  * @title ZombieFactory
  * @author Thanh-Quy Nguyen
  * @dev A smart contract where zombies are created
  */
-contract ZombieFactory {
+contract ZombieFactory is Ownable {
 	event NewZombie(uint256 zombieId, string name, uint256 dna);
 
 	uint256 dnaDigits = 16;
