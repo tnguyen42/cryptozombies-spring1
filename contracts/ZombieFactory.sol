@@ -20,6 +20,8 @@ contract ZombieFactory is Ownable {
 	struct Zombie {
 		string name;
 		uint256 dna;
+		uint32 level;
+		uint32 readyTime;
 	}
 
 	Zombie[] public zombies;
@@ -33,7 +35,7 @@ contract ZombieFactory is Ownable {
 	 * @param _dna The dna of the new zombie to be added
 	 */
 	function _createZombie(string memory _name, uint256 _dna) internal {
-		zombies.push(Zombie(_name, _dna));
+		zombies.push(Zombie(_name, _dna, 0, 0));
 		uint256 id = zombies.length - 1;
 		zombieToOwner[id] = msg.sender;
 		ownerZombieCount[msg.sender]++;
