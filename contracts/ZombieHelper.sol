@@ -15,6 +15,34 @@ contract ZombieHelper is ZombieFeeding {
 	}
 
 	/**
+	 * @dev A function that allows the owner of the contract to withdraw the whole balance stored at the smart contract address
+	 */
+	function withdraw() external onlyOwner {
+		address payable _owner = payable(owner());
+		_owner.transfer(address(this).balance);
+	}
+
+	/**
+	 * A function to edit the level up fee
+	 * @param _fee The new fee
+	 */
+	function setLevelUpFee(uint256 _fee) external onlyOwner {
+		levelUpFee = _fee;
+	}
+
+	/**
+	 * @dev A payable function to increase the level of a user's zombie by 1.
+	 * @param _zombieId The ID of the zombie to be leveled up
+	 */
+	function levelUp(uint256 _zombieId) external payable {
+		require(
+			msg.value == levelUpFee,
+			"You didn't pay the right amount of ether for this transaction."
+		);
+		zombies[_zombieId].level++;
+	}
+
+	/**
 	 * @dev Allows the owner of a zombie to rename it (if zombie's level >= 2)
 	 * @param _zombieId The ID of the zombie to be renamed
 	 * @param _newName The new name to be given to the zombie
