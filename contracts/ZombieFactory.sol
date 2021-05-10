@@ -1,16 +1,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
+
 /**
  * @title ZombieFactory
  * @author Thanh-Quy Nguyen
  * @dev A smart contract where zombies are created
  */
-contract ZombieFactory {
+contract ZombieFactory is Ownable {
 	event NewZombie(uint256 zombieId, string name, uint256 dna);
 
 	uint256 dnaDigits = 16;
 	uint256 dnaModulus = 10**dnaDigits;
+
+	uint256 cooldownTime = 1 days;
 
 	string example = "MyString";
 	string example2 = "MyOtherString";
@@ -18,6 +22,8 @@ contract ZombieFactory {
 	struct Zombie {
 		string name;
 		uint256 dna;
+		uint32 level;
+		uint32 readyTime;
 	}
 
 	Zombie[] public zombies;
@@ -31,7 +37,9 @@ contract ZombieFactory {
 	 * @param _dna The dna of the new zombie to be added
 	 */
 	function _createZombie(string memory _name, uint256 _dna) internal {
-		zombies.push(Zombie(_name, _dna));
+		zombies.push(
+			Zombie(_name, _dna, 1, uint32(block.timestamp + cooldownTime))
+		);
 		uint256 id = zombies.length - 1;
 		zombieToOwner[id] = msg.sender;
 		ownerZombieCount[msg.sender]++;
