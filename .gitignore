@@ -106,3 +106,4 @@ dist
 # Solidity
 build
 coverage.json
+docs
